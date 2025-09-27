@@ -5,4 +5,6 @@ file and folder structure for educator and student
 
 content file for common logic and states and functions
 
-routing
+routing - student + educator
+
+start designing components

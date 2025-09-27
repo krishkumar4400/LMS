@@ -26,10 +26,11 @@ const App = () => {
         <Route path='/Loading/:path' element={<Loading/>} />
 
         {/* Routing for Educator */}
-        <Route path='/educator' element={<DashBoard/>}>
-        <Route path='/add-course' element={<AddCourse/>} />
-        <Route path='/my-courses' element={<MyCourses/>} />
-        <Route path='/student-enrolled' element={<StudentEnrolled/>} />
+        <Route path='/educator' element={<Educator/>}>
+        <Route path='educator' element={<DashBoard/>} />
+        <Route path='add-course' element={<AddCourse/>} />
+        <Route path='my-courses' element={<MyCourses/>} />
+        <Route path='student-enrolled' element={<StudentEnrolled/>} />
         </Route>
       </Routes>
     </div>
