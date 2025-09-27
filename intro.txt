@@ -1,2 +1,8 @@
 packeges:
 npm i react-hot-toast react-router-dom axios lucide-react quill react-youtube uniqid humanize-duration rc-progress react-simple-star-rating 
+
+file and folder structure for educator and student 
+
+content file for common logic and states and functions
+
+routing

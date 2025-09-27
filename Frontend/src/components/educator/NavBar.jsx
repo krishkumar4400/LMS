@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CourseList = () => {
+const NavBar = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const CourseList = () => {
   )
 }
 
-export default CourseList
+export default NavBar
