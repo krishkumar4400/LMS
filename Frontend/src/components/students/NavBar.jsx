@@ -1,19 +1,34 @@
 import React from 'react'
 import { assets } from '../../assets/assets'
-import {useUser, UserButton, useClerk} from '@clerk/clerk-react';
-import {useNavigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
 const NavBar = () => {
-    const {openSignIn} = useClerk();
     const navigate = useNavigate();
+
+    const isCourseListPage = location.pathname.includes('/course-list');
+
+
   return (
-    <div className="flex items-center justify-between px-8 py-5 sm:px-20 border border-b border-gray-400">
-      <img src={assets.logo} onClick={() => navigate('/')} className='w-28 sm:w-34 cursor-pointer' alt="" />
-      <div className='flex items-center gap-4 text-gray-700'>
-        <p>Add Course  |  </p>
-        <p> Login</p>
-        <button onClick={openSignIn} className='bg-primary rounded-full text-white px-6 py-2.5 cursor-pointer'>Create Account</button>
+    <div className={`flex items-center justify-between px-4 py-5 sm:px-10 md:px-15 lg:px-36 border border-b border-gray-500 ${
+    isCourseListPage ? 'bg-white' : 'bg-cyan-100/80' } `}>
+      <img
+        src={assets.logo}
+        onClick={() => navigate("/")}
+        className="w-28 lg:w-34 cursor-pointer"
+        alt="Logo"
+      />
+
+      {/* For Desktop Screen */}
+      <div className='hidden sm:flex items-center gap-5 text-gray-600'>
+        <div className="">
+          <button>Become Educator</button>
+          |
+          <Link to='/my-enrollments' >My Enrollments</Link>
+        </div>
+        <button className='bg-blue-600 rounded-full px-5 py-2 outline-0 border-0 text-white'>Create Account</button>
       </div>
+
+      {/* <div></div> */}
     </div>
   );
 }
