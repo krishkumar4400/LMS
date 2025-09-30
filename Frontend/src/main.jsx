@@ -15,10 +15,10 @@ import { AppContextProvider } from './context/AppContext.jsx';
 
 createRoot(document.getElementById("root")).render(
     <BrowserRouter>
+      <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl='/'>
   <AppContextProvider>
-      <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
         <App />
-      </ClerkProvider>
   </AppContextProvider>
+      </ClerkProvider>
     </BrowserRouter>
 );
