@@ -8,3 +8,9 @@ content file for common logic and states and functions
 routing - student + educator
 
 start designing components
+
+add currency in environment so that after changing at one place
+it will change the currency in entire application
+
+then setup with context file 
+

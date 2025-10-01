@@ -19,7 +19,7 @@ const NavBar = () => {
     >
       <img
         src={assets.logo}
-        onClick={() => navigate("/")}
+        onClick={() => {navigate("/"); scrollTo(0,0)}}
         className="w-28 lg:w-34 cursor-pointer"
         alt="Logo"
       />

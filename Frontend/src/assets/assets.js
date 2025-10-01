@@ -758,3 +758,22 @@ export const dummyCourses = [
         "courseThumbnail": "https://img.youtube.com/vi/WbV3zRgpw_E/maxresdefault.jpg"
     }
 ]
+
+export const courseTags = [
+    {_id: "123abc",name: "Machine Learning", },
+    {_id: "123abc",name: "Artificial Intelligence", },
+    {_id: "123abc",name: "Block Chain", },
+    {_id: "123abc",name: "Data Science", },
+    {_id: "123abc",name: "Data Engineering", },
+    {_id: "123abc",name: "Cyber Security", },
+    {_id: "123abc",name: "DevOps", },
+    {_id: "123abc",name: "LLM", },
+    {_id: "123abc",name: "Web Development", },
+    {_id: "123abc",name: "DSA", },
+    {_id: "123abc",name: "C Programming", },
+    {_id: "123abc",name: "Java", },
+    {_id: "123abc",name: "Python", },
+    {_id: "123abc",name: "Backend Engineering", },
+    {_id: "123abc",name: "Cloud Computing", },
+    {_id: "123abc",name: "Android Development", },
+]
