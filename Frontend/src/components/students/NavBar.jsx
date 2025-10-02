@@ -1,13 +1,15 @@
-import React from "react";
-import { assets } from "../../assets/assets";
+import { useContext } from "react";
+import { assets } from "../../assets/assets.js";
 import { Link, useNavigate } from "react-router-dom";
 import { useClerk, useUser, UserButton } from "@clerk/clerk-react";
+import { AppContext } from "../../context/AppContext.jsx";
 
 const NavBar = () => {
   const navigate = useNavigate();
 
   const { openSignIn } = useClerk();
   const { user } = useUser();
+  const { isEducator, setIsEducator } = useContext(AppContext);
 
   const isCourseListPage = location.pathname.includes("/course-list");
 
@@ -19,7 +21,10 @@ const NavBar = () => {
     >
       <img
         src={assets.logo}
-        onClick={() => {navigate("/"); scrollTo(0,0)}}
+        onClick={() => {
+          navigate("/");
+          scrollTo(0, 0);
+        }}
         className="w-28 lg:w-34 cursor-pointer"
         alt="Logo"
       />
@@ -27,11 +32,12 @@ const NavBar = () => {
       {/* For Desktop Screen */}
       <div className="hidden sm:flex items-center gap-5 text-gray-600">
         <div className="flex items-center gap-4">
-          {user && <>
-            <button> {user ? "" : ""}Become Educator</button> |
-            <Link to="/my-enrollments">My Enrollments</Link>
-          </>
-            }
+          {user && (
+            <>
+              <button className="cursor-pointer" onClick={() => {navigate('/educator')}}> {isEducator ? "Educator Dashboard" : "Become Educator"}</button> |
+              <Link to="/my-enrollments">My Enrollments</Link>
+            </>
+          )}
         </div>
         {user ? (
           <UserButton />
@@ -48,13 +54,14 @@ const NavBar = () => {
       {/* For Phone Screens */}
       <div className="sm:hidden flex items-center gap-2 sm:gap-4 text-gray-600">
         <div className="flex items-center gap-4">
-          {user && <>
-            <button>Become Educator</button> |
-            <Link to="/my-enrollments">My Enrollments</Link>
-          </>
-            }
+          {user && (
+            <>
+              <button>Become Educator</button> |
+              <Link to="/my-enrollments">My Enrollments</Link>
+            </>
+          )}
         </div>
-        {user ? ( 
+        {user ? (
           <UserButton />
         ) : (
           <button onClick={openSignIn}>
