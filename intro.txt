@@ -14,3 +14,4 @@ it will change the currency in entire application
 
 then setup with context file 
 
+educator components and functionalities
