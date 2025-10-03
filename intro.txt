@@ -15,3 +15,7 @@ it will change the currency in entire application
 then setup with context file 
 
 educator components and functionalities
+
+home page completed
+
+starting designing course list page
