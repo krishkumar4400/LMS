@@ -34,8 +34,17 @@ const NavBar = () => {
         <div className="flex items-center gap-4">
           {user && (
             <>
-              <button className="cursor-pointer" onClick={() => {navigate('/educator')}}> {isEducator ? "Educator Dashboard" : "Become Educator"}</button> |
-              <Link to="/my-enrollments">My Enrollments</Link>
+              <button
+                className="cursor-pointer"
+                onClick={() => {
+                  navigate("/educator");
+                  setIsEducator(true);
+                }}
+              >
+                {" "}
+                {isEducator ? "Educator Dashboard" : "Become Educator"}
+              </button>{" "}
+              |<Link to="/my-enrollments">My Enrollments</Link>
             </>
           )}
         </div>
@@ -56,8 +65,10 @@ const NavBar = () => {
         <div className="flex items-center gap-4">
           {user && (
             <>
-              <button>Become Educator</button> |
-              <Link to="/my-enrollments">My Enrollments</Link>
+              <button onClick={() => {navigate("/educator"); setIsEducator(true); }}>
+                {isEducator ? "Educator Dashboard" : "Become Educator"}
+              </button>{" "}
+              |<Link to="/my-enrollments">My Enrollments</Link>
             </>
           )}
         </div>

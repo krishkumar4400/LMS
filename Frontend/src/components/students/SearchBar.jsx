@@ -38,7 +38,7 @@ const Search = ({data}) => {
           />
           <button
             type="submit"
-            className="bg-blue-600 text-white rounded-lg px-7 md:px-10 py-2 md:py-3 hover:scale-105 active:scale-95 transition-all duration-200"
+            className="bg-blue-600 text-white rounded-md px-8 md:px-10 py-2 hover:scale-105 active:scale-95 transition-all duration-200 sm:ml-10"
           >
             Search
           </button>

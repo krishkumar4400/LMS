@@ -5,7 +5,7 @@ import CourseTags from './CourseTags';
 const Hero = () => {
   return (
     <div className="w-full bg-gradient-to-t to-cyan-200/70 flex flex-col">
-      <CourseTags />
+      {/* <CourseTags /> */}
       <div className=" md:px-0 space-y-7 pt-20 md:pt-32 text-center justify-center items-center">
         <h2 className="mx-auto text-gray-800 mb-4 text-2xl sm:text-4xl font-bold">
           Empower your future with the

@@ -12,6 +12,7 @@ import AddCourse from './pages/educator/AddCourse.jsx';
 import MyCourses from './pages/educator/MyCourses.jsx';
 import StudentEnrolled from './pages/educator/StudentEnrolled.jsx';
 import NavBar from './components/students/NavBar.jsx';
+import LearnMore from './pages/student/LearnMore.jsx';
 
 const App = () => {
 
@@ -30,6 +31,7 @@ const App = () => {
         <Route path='/my-enrollments' element={<MyEnrollments/>} />
         <Route path='/player/:courseId' element={<Player/>} />
         <Route path='/Loading/:path' element={<Loading/>} />
+        <Route path='/learn-more' element={<LearnMore/>} />
 
         {/* Routing for Educator */}
         <Route path='/educator' element={<Educator/>}>
