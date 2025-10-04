@@ -41,7 +41,6 @@ const CourseList = () => {
           </div>
         ))}
       </div>
-
       <Footer data={input} />
     </div>
   );
