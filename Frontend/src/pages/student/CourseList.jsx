@@ -1,14 +1,30 @@
 import Footer from '../../components/students/Footer.jsx';
 import {useNavigate, useParams} from 'react-router-dom';
 import Search from '../../components/students/SearchBar.jsx'
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext.jsx';
 import CourseCard from '../../components/students/CourseCard.jsx';
+import { assets } from '../../assets/assets.js';
 
 const CourseList = () => {
   const navigate = useNavigate();
   const {allCourses} = useContext(AppContext);
-  const input = useParams();
+  const {input} = useParams();
+  const [filteredCourse, setFilteredCourse] = useState([]);
+
+  useEffect(() => {
+    if(allCourses && allCourses.length > 0) {
+      const tempCourses = allCourses.slice();
+
+      input ? setFilteredCourse(
+        tempCourses.filter(
+          item => item.courseTitle.toLowerCase().includes(input.toLowerCase())
+        )
+      ) :
+      setFilteredCourse(tempCourses)
+    }
+  }, [allCourses, input]);
+
   return (
     <div className="">
       <div className="flex max-sm:gap-4 max-sm:flex-col max-sm:items-start px-8 md:px-32 items-center justify-between w-full pt-20 pb-10">
@@ -28,10 +44,24 @@ const CourseList = () => {
         </div>
       </div>
 
+      <div className="my-16 gap-3 md:p-0  px-8 md:px-32">
+        {input && (
+          <div className="inline-flex items-center gap-4 px-4 py-2 border mt-8 -mb-8 text-gray-600">
+            <p>{input}</p>
+            <img
+              src={assets.cross_icon}
+              className="cursor-pointer"
+              onClick={() => navigate("/course-list")}
+              alt=""
+            />
+          </div>
+        )}
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 my-16 gap-3 md:p-0  px-8 md:px-32">
-        {
-          allCourses.map((course, index) => (<CourseCard key={index} course={course}/>))
-        }
+        {filteredCourse.map((course, index) => (
+          <CourseCard key={index} course={course} />
+        ))}
       </div>
       <Footer data={input} />
     </div>
