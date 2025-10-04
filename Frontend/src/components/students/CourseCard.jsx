@@ -10,7 +10,7 @@ const CourseCard = ({course}) => {
       <img src={course.courseThumbnail} className="w-full" alt="" />
       <div className="p-3 text-left ">
         <h3 className="text-base font-semibold">{course.courseTitle}</h3>
-        <p className="text-sm font-medium text-gray-600">{course.educator.name}</p>
+        <p className="text-sm font-medium text-gray-600">krish </p>
         <div className="flex items-center gap-2 space-x-2">
           <p>
             {calculateRating(course)}
