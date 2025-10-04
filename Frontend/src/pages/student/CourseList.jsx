@@ -1,7 +1,6 @@
 import Footer from '../../components/students/Footer.jsx';
 import {useNavigate, useParams} from 'react-router-dom';
 import Search from '../../components/students/SearchBar.jsx'
-import { assets, dummyCourses } from '../../assets/assets.js';
 
 const CourseList = () => {
   const navigate = useNavigate();
@@ -26,20 +25,6 @@ const CourseList = () => {
       </div>
 
       <div className="flex px-5 sm:px-10 lg:px-22">
-        {dummyCourses.map((course, index) => (
-          <div key={index}>
-            <img src={course.courseThumbnail} alt="" />
-            <div>
-              <h2>{course.courseTitle}</h2>
-              <p>
-
-                {
-                  // course.educator
-                }
-              </p>
-            </div>
-          </div>
-        ))}
       </div>
       <Footer data={input} />
     </div>
