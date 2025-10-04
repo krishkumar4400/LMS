@@ -20,19 +20,21 @@ const CourseList = () => {
             /<span className="text-gray-600">Course List</span>
           </p>
         </div>
-<div className='max-sm:flex max-sm:justify-center max-sm:items-center max-sm:w-full max-sm:my-4'><Search /></div>
-        
+        <div className="max-sm:flex max-sm:justify-center max-sm:items-center max-sm:w-full max-sm:my-4">
+          <Search />
+        </div>
       </div>
 
       <div className="flex px-5 sm:px-10 lg:px-22">
-        {
-          dummyCourses.map((course, index) => (
-            <div key={index}>
-              <img src={course.courseThumbnail} alt="" />
+        {dummyCourses.map((course, index) => (
+          <div key={index}>
+            <img src={course.courseThumbnail} alt="" />
+            <div>
+              <p>{course.courseTitle}</p>
             </div>
-          ))
-        }
-        </div>
+          </div>
+        ))}
+      </div>
 
       <Footer data={input} />
     </div>
