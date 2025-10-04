@@ -1,9 +1,13 @@
 import Footer from '../../components/students/Footer.jsx';
 import {useNavigate, useParams} from 'react-router-dom';
 import Search from '../../components/students/SearchBar.jsx'
+import { useContext } from 'react';
+import { AppContext } from '../../context/AppContext.jsx';
+import CourseCard from '../../components/students/CourseCard.jsx';
 
 const CourseList = () => {
   const navigate = useNavigate();
+  const {allCourses} = useContext(AppContext);
   const input = useParams();
   return (
     <div className="">
@@ -24,7 +28,10 @@ const CourseList = () => {
         </div>
       </div>
 
-      <div className="flex px-5 sm:px-10 lg:px-22">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 my-16 gap-3 md:p-0  px-8 md:px-32">
+        {
+          allCourses.map((course, index) => (<CourseCard key={index} course={course}/>))
+        }
       </div>
       <Footer data={input} />
     </div>
