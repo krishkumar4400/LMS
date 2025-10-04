@@ -30,7 +30,13 @@ const CourseList = () => {
           <div key={index}>
             <img src={course.courseThumbnail} alt="" />
             <div>
-              <p>{course.courseTitle}</p>
+              <h2>{course.courseTitle}</h2>
+              <p>
+
+                {
+                  // course.educator
+                }
+              </p>
             </div>
           </div>
         ))}
