@@ -1,28 +1,35 @@
-import { useContext, useEffect, useState } from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
-import { AppContext } from '../../context/AppContext.jsx';
-import Loading from '../../components/students/Loading.jsx';
-import { assets } from '../../assets/assets.js';
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { AppContext } from "../../context/AppContext.jsx";
+import Loading from "../../components/students/Loading.jsx";
+import { assets } from "../../assets/assets.js";
+import humanizeDuration from "humanize-duration";
 
 const CourseDetails = () => {
-  const {id} = useParams();
+  const { id } = useParams();
   const [courseData, setCourseData] = useState(null);
-  const { allCourses, calculateRating } = useContext(AppContext);
+  const {
+    allCourses,
+    calculateRating,
+    calculateChapterTime,
+    calculateCourseDuration,
+    calculateNoOfLectures,
+  } = useContext(AppContext);
   const navigate = useNavigate();
+  const [openSection, setOpenSection] = useState({});
 
   const fetchCourseData = async () => {
-    const findCourse = allCourses.find(course => course._id === id);
+    const findCourse = allCourses.find((course) => course._id === id);
     setCourseData(findCourse);
-}
+  };
 
-useEffect(() => {
-  fetchCourseData();
-}, []);
+  useEffect(() => {
+    fetchCourseData();
+  }, []);
 
   return courseData ? (
     <>
-      <div className="flex md:flex-row flex-col-reverse gap-10 relative items-start justify-between md:px-36 px-8 md:pt-30 pt-20 text-left">
-        <div className="absolute top-0 left-0 w-full h-96 -z-1 bg-gradient-to-b from-cyan-100/70"></div>
+      <div className="flex md:flex-row flex-col-reverse gap-10 relative items-start justify-between md:px-36 px-8 md:pt-30 pt-10 text-left bg-gradient-to-t to-cyan-300/70">
         {/* left column */}
         <div className="max-w-xl z-10 text-gray-500">
           <h2 className="md:text-4xl text-2xl font-semibold text-gray-800">
@@ -36,7 +43,7 @@ useEffect(() => {
           ></p>
           {/* review and rating */}
 
-          <div className="flex items-center gap-2 space-x-2 my-2">
+          <div className="flex items-center gap-2 space-x-2 pb-1 text-sm my-2">
             <p>{calculateRating(courseData)}</p>
             <div className="flex items-center">
               {[...Array(5)].map((_, i) => (
@@ -61,7 +68,7 @@ useEffect(() => {
               {courseData.enrolledStudents.length > 1 ? " Students" : "Student"}
             </p>
           </div>
-          <p className="text-sm text-gray-600 my-4 cursor-pointer">
+          <p className="text-sm text-gray-600 mb-3 cursor-pointer">
             Course by{" "}
             <span
               onClick={() => navigate("/educator/my-courses")}
@@ -70,6 +77,59 @@ useEffect(() => {
               Krish
             </span>
           </p>
+          <div className="pt-8 text-gray-800">
+            <h2 className="text-xl font-semibold">Course Structure</h2>
+            <div className="pt-6">
+              {courseData.courseContent.map((chapter, index) => (
+                <div
+                  key={index}
+                  className="border border-gray-300 mb-2 bg-white rounded"
+                >
+                  <div className="flex items-center justify-between px-4 py-3 cursor-pointer select-none">
+                    <div className="flex items-center gap-2">
+                      <img src={assets.down_arrow_icon} alt="arrow icon" />
+                      <p className="text-sm md:text-base font-medium text-black">
+                        {chapter.chapterTitle}
+                      </p>
+                    </div>
+                    <p className="text-slate-800 text-sm md:text-base">
+                      {chapter.chapterContent.length} lectures-
+                      {calculateChapterTime(chapter.chapterContent)}
+                    </p>
+                  </div>
+                  <div className="overflow-hidden transition-all duration-300 max-h-96">
+                    <ul className="list-disc pl-4 md:pl-10 pr-4 py-2 text-gray-600 border-t border-gray-300">
+                      {chapter.chapterContent.map((lecture, i) => (
+                        <li key={i} className="flex items-start gap-2 py-1 ">
+                          <img
+                            src={assets.play_icon}
+                            alt="play icon"
+                            className="w-4 h-4 mt-1"
+                          />
+                          <div className="flex items-center justify-between w-full  text-gray-800 text-xs sm:text-default">
+                            <p>{lecture.lectureTitle}</p>
+                          </div>
+                          <div className="flex gap-2 w-full sm:w-1/2 items-end max-sm:flex-col max-sm:mb-3">
+                            {lecture.isPreviewFree && (
+                              <p className="text-blue-500 cursor-pointer">
+                                Preview
+                              </p>
+                            )}
+                            <p>
+                              {humanizeDuration(
+                                lecture.lectureDuration * 60 * 1000,
+                                { units: ["h", "m"] }
+                              )}
+                            </p>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* right column */}
@@ -79,6 +139,6 @@ useEffect(() => {
   ) : (
     <Loading />
   );
-}
+};
 
-export default CourseDetails
+export default CourseDetails;
