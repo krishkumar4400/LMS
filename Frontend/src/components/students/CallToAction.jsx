@@ -19,13 +19,13 @@ const CallToAction = () => {
         </p>
         <div className="flex items-center justify-center gap-8">
           <button
-            onClick={() => {user ? navigate('/course-list') : openSignIn()}}
+            onClick={() => {user ? navigate('/course-list') : openSignIn(); scrollTo(0,0)}}
             className="bg-blue-600 text-white rounded-md px-8 py-2 hover:scale-105 active:scale-95 duration-200 hover:shadow-gray-600 shadow-md"
           >
             Get started
           </button>
           <button
-            onClick={() => {navigate('/learn-more')}}
+            onClick={() => {navigate('/learn-more'); scrollTo(0,0)}}
             className="flex items-center gap-2 hover:cursor-pointer duration-200 hover:scale-105 active:scale-95 hover:text-gray-800"
           >
             Learn more <img src={assets.arrow_icon} alt="arrow" />
