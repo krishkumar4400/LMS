@@ -60,7 +60,7 @@ const MyEnrollments = () => {
                   <span>Lectures</span>
                 </td>
                 <td className="px-4 py-3 max-sm:text-right">
-                  <button onClick={() => navigate(`player/${course._id}`)} className="px-3 sm:px-5 py-1.5 sm:py-2 max-sm:text-sm rounded border-0 bg-indigo-600 shadow-md shadow-white hover:scale-105 active:scale-100 duration-200 text-white">
+                  <button onClick={() => navigate(`/player/${course._id}`)} className="px-3 sm:px-5 py-1.5 sm:py-2 max-sm:text-sm rounded border-0 bg-indigo-600 shadow-md shadow-white hover:scale-105 active:scale-100 duration-200 text-white">
                     {progressArray[index] &&
                     progressArray[index].lectureCompleted /
                       progressArray[index].totalLectures ===
