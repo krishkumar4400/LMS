@@ -19,3 +19,6 @@ educator components and functionalities
 home page completed
 
 starting designing course list page
+
+
+............... start creating pages for educator 
