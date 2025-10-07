@@ -115,7 +115,9 @@ const Player = () => {
           </div>
 
           {/* Rate this course */}
-          <div><h2>Rate This Course</h2>
+          <div className="text-gray-800 my-10">
+            <h2 className="text-xl font-semibold">Rate This Course</h2>
+
           </div>
 
         </div>
