@@ -2,10 +2,26 @@ import React from 'react'
 
 const MyEnrollments = () => {
   return (
-    <div>
-      
-    </div>
-  )
+    <>
+      <div className='px-8 sm:px-36 pt-10'>
+        <h1 className='text-2xl font-semibold'>My Enrollments</h1>
+        <table className='sm:table-auto table-fixed w-full overflow-hidden border mt-10'>
+          <thead className='text-gray-900 border-b border-gray-500/40 text-sm text-left max-sm:hidden'>
+            <tr>
+              <th className="px-4 py-3 font-semibold truncate">Course</th>
+              <th className="px-4 py-3 font-semibold truncate">Duration</th>
+              <th className="px-4 py-3 font-semibold truncate">Completed</th>
+              <th className="px-4 py-3 font-semibold truncate">Status</th>
+            </tr>
+
+            <tr>
+              <td></td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </>
+  );
 }
 
 export default MyEnrollments
