@@ -5,6 +5,7 @@ import { AppContext } from "../../context/AppContext";
 import { useParams } from "react-router-dom";
 import YouTube from "react-youtube";
 import Footer from "../../components/students/Footer";
+import Rating from "../../components/students/Rating.jsx";
 
 const Player = () => {
   const [courseData, setCourseData] = useState(null);
@@ -115,9 +116,9 @@ const Player = () => {
           </div>
 
           {/* Rate this course */}
-          <div className="text-gray-800 my-10">
+          <div className="text-gray-800 my-10 flex items-center gap-2 py-3">
             <h2 className="text-xl font-semibold">Rate This Course</h2>
-
+            <Rating/>
           </div>
 
         </div>
