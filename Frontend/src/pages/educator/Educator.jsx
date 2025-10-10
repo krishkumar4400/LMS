@@ -1,12 +1,15 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
+import Footer from '../../components/educator/Footer'
+import NavBar from '../../components/educator/NavBar'
 
 const Educator = () => {
   return (
     <div>
-      <h1>Edicator</h1>
       <div>
         {<Outlet/>}
+        <NavBar/>
+        {/* <Footer/> */}
       </div>
     </div>
   )
