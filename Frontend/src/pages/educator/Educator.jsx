@@ -6,17 +6,15 @@ import SideBar from '../../components/educator/SideBar'
 
 const Educator = () => {
   return (
-    <div className='text-default min-h-screen bg-white'>
-        <NavBar/>
-      <div className='flex'>
-        <SideBar/>
-        <div className='flex-1'>
-        {<Outlet/>}
-        </div>
+    <div className="text-default min-h-screen bg-white">
+      <NavBar />
+      <div className="flex">
+        <SideBar />
+        <div className="flex-1 md:ml-64 ml-16 p-5">{<Outlet />}</div>
       </div>
-        <Footer/>
+      <Footer />
     </div>
-  )
+  );
 }
 
 export default Educator

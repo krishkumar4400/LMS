@@ -8,7 +8,14 @@ export const AppContextProvider = (props) => {
   const currency = import.meta.env.VITE_CURRENCY;
 
   const [allCourses, setAllCourses] = useState([]);
-  const [isEducator, setIsEducator] = useState(false);
+const [isEducator, setIsEducator] = useState(
+  () => JSON.parse(localStorage.getItem("isEducator")) || false
+);
+
+useEffect(() => {
+  localStorage.setItem("isEducator", JSON.stringify(isEducator));
+}, [isEducator]);
+
   const [enrolledCourses, setEnrolledCourses] = useState([]);
 
   // Fetch All Courses
