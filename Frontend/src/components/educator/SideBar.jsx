@@ -22,9 +22,9 @@ const SideBar = () => {
             to={item.path}
             key={item.name}
             end={item.path === "/educator"}
-            className="flex items-center gap-2 px-4 py-4"
+            className={({isActive}) => `flex items-center md:flex-row flex-col md:justify-start justify-center py-4 md:px-10 gap-3 ${isActive ? 'bg-teal-100 border-r-[7px] border-teal-500/90' : 'hover:bg-gray-100 border-r-[7px] border-white hover:border-gray-100/90'} `}
           >
-            <img src={item.icon} className="w-7 h-7" alt="" />
+            <img src={item.icon} className="w-5 h-5" alt="" />
             <p className="md:block hidden text-center"> {item.name} </p>
           </NavLink>
         ))}

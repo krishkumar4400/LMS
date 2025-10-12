@@ -14,7 +14,7 @@ const Educator = () => {
         {<Outlet/>}
         </div>
       </div>
-        {/* <Footer/> */}
+        <Footer/>
     </div>
   )
 }
