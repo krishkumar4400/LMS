@@ -9,12 +9,12 @@ const NavBar = () => {
   const educatorData = dummyEducatorData;
   const {openSignIn} = useClerk();
   return (
-    <div className="flex bg-gradient-to-b to-teal-500 justify-between items-center pt-5 px-5 sm:px-12 border-b border-gray-500 py-6">
+    <div className="flex justify-between items-center pt-5 px-4 sm:px-10 border-b border-gray-500 py-6">
       <img
         onClick={() => navigate("/")}
         src={assets.logo}
         alt="Logo"
-        className="w-25 sm:w-30 cursor-pointer"
+        className="w-25 sm:w-28 cursor-pointer"
       />
       <div className="flex items-center gap-5 relative text-gray-800">
         <p>Hi! 
