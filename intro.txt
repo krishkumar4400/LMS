@@ -22,3 +22,6 @@ starting designing course list page
 
 
 ............... start creating pages for educator 
+
+
+Quill packege -> quilljs.com
