@@ -44,7 +44,7 @@ const SideBar = () => {
             key={item.name}
             end={item.path === "/educator"}
             className={({ isActive }) =>
-              `flex items-center md:flex-row flex-col md:justify-start justify-center py-4 md:px-10 gap-3 transition-all duration-200
+              `flex items-center md:flex-row flex-col md:justify-start justify-center py-4 md:px-8 gap-3 transition-all duration-200
               ${
                 isActive
                   ? "bg-teal-100 border-r-[7px] border-teal-500/90 font-semibold"
