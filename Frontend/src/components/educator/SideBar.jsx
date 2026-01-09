@@ -5,7 +5,7 @@ import { NavLink, useLocation } from "react-router-dom";
 
 const SideBar = () => {
   const location = useLocation();
-  const { isEducator } = useContext(AppContext);
+  const { isEducator, isLectureAdding } = useContext(AppContext);
 
   const menuItems = [
     { name: "Dashboard", path: "/educator", icon: assets.home_icon },
@@ -26,17 +26,17 @@ const SideBar = () => {
     isEducator &&
     location.pathname.startsWith("/educator") && (
       <div
-        className="
+        className={` ${isLectureAdding ? "hidden" : "flex"}
           fixed  left-0 
           md:w-64 w-16 
           h-screen 
           bg-white 
           shadow-md 
           border-r border-gray-300 
-          flex flex-col 
+           flex-col 
           z-50 
           overflow-y-auto
-        "
+        `}
       >
         {menuItems.map((item) => (
           <NavLink

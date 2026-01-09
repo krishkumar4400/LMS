@@ -1,11 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import uniqid from "uniqid";
 import Quill from "quill";
-import { assets } from "../../assets/assets";
+import { assets } from "../../assets/assets.js";
+import { AppContext } from "../../context/AppContext.jsx";
 
 const AddCourse = () => {
   const quillRef = useRef(null);
   const editorRef = useRef(null);
+
+  const {isLectureAdding, setIsLectureAdding} = useContext(AppContext);
 
   const [courseTitle, setCourseTitle] = useState("");
   const [coursePrice, setCoursePrice] = useState(0);
@@ -23,26 +26,76 @@ const AddCourse = () => {
   });
 
   const handleChapter = (action, chapterId) => {
-    if(action == 'add') {
+    if (action == "add") {
       const title = prompt("Enter Chapter Name: ");
 
-      if(title) {
+      if (title) {
         const newChapter = {
           chapterId: uniqid(),
           chapterTitle: title,
           chapterContent: [],
           collapsed: false,
-          chapterOrder: chapters.length > 0 ? chapters.slice(-1)[0].chapterOrder + 1 : 1 
+          chapterOrder:
+            chapters.length > 0 ? chapters.slice(-1)[0].chapterOrder + 1 : 1,
         };
         setChapters([...chapters, newChapter]);
-      } else if(action == 'remove') {
-        setChapters(chapters.filter((chapter) => chapter.chapterId !== chapterId))
-      } else if(action === 'toggle') {
+      } else if (action == "remove") {
         setChapters(
-          chapters.map((chapter) => chapter.chapterId === chapterId ? {...chapter, collapsed: !chapter.collapsed} : chapter)
+          chapters.filter((chapter) => chapter.chapterId !== chapterId)
+        );
+      } else if (action === "toggle") {
+        setChapters(
+          chapters.map((chapter) =>
+            chapter.chapterId === chapterId
+              ? { ...chapter, collapsed: !chapter.collapsed }
+              : chapter
+          )
         );
       }
     }
+  };
+
+  const handleLecture = (action, chapterId, lectureIndex) => {
+    if (action === "add") {
+      setCurrentChapterId(chapterId);
+      setShowPopup(true);
+    } else if (action === "remove") {
+      setChapters(
+        chapters.map((chapter) => {
+          if (chapter.chapterId === chapterId) {
+            chapter.chapterContent.splice(lectureIndex, 1);
+          }
+          return chapter;
+        })
+      );
+    }
+  };
+
+  const handleAddLecture = () => {
+    setChapters(
+      chapters.map((chapter) => {
+        if(chapter.chapterId === currentChapterId) {
+          const newLecture = {
+            ...lectureDetails,
+            lectureOrder: chapter.chapterContent.length > 0 ? chapter.chapterContent.slice(-1)[0].lectureOrder + 1 : 1, 
+            lectureId: uniqid()
+          };
+          chapter.chapterContent.push(newLecture);
+        }
+        return chapter;
+      })
+    )
+    setShowPopup(false);
+    setLectureDetails({
+      lectureTitle: '',
+      lectureDuration: '',
+      lectureUrl: '',
+      isPreviewFree: false
+    });
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
   }
 
   useEffect(() => {
@@ -56,7 +109,7 @@ const AddCourse = () => {
 
   return (
     <div className="h-screen overflow-scroll flex flex-col items-start justify-between sm:p-6 sm:pb-0 pt-8 pb-0">
-      <form className="flex flex-col gap-5 max-w-md w-full text-slate-700 font-medium">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5 max-w-md w-full text-slate-700 font-medium">
         <div className="flex flex-col gap-1">
           <p>Course Title</p>
           <input
@@ -136,7 +189,7 @@ const AddCourse = () => {
             >
               <div className="flex justify-between items-center p-4 border-b">
                 <div className="flex items-center ">
-                  <img
+                  <img onClick={() => handleChapter('toggle', chapter.chapterId)}
                     src={assets.dropdown_icon}
                     width={15}
                     className={`mr-2 cursor-pointer transition-all ${
@@ -151,7 +204,7 @@ const AddCourse = () => {
                 <span className="text-slate-600 font-medium">
                   {chapter.chapterContent.length} Lectures
                 </span>
-                <img
+                <img onClick={() => handleChapter('remove', chapter.chapterId)}
                   src={assets.cross_icon}
                   className="cursor-pointer"
                   alt=""
@@ -178,14 +231,24 @@ const AddCourse = () => {
                         - {lecture.isPreviewFree ? "Free Preview" : "Paid"}
                       </span>
                       <img
+                        onClick={() =>
+                          handleChapter(
+                            "remove",
+                            chapter.chapterId,
+                            lectureIndex
+                          )
+                        }
                         src={assets.cross_icon}
-                        alt=""
+                        alt="cross_icon"
                         className="cursor-pointer"
                       />
                     </div>
                   ))}
 
-                  <div className="inline-flex bg-gray-200 p-3 rounded cursor-pointer mt-4">
+                  <div
+                    onClick={() => {handleLecture("add", chapter.chapterId); setIsLectureAdding(true)}}
+                    className="inline-flex bg-gray-200 p-3 rounded cursor-pointer mt-4"
+                  >
                     + Add Lecture
                   </div>
                 </div>
@@ -193,32 +256,18 @@ const AddCourse = () => {
             </div>
           ))}
 
-          <div onClick={() => handleChapter('add')} className="flex justify-center items-center bg-blue-100 p-2 rounded-lg cursor-pointer">
+          <div
+            onClick={() => handleChapter("add")}
+            className="flex justify-center items-center bg-blue-200 p-2 rounded-lg cursor-pointer"
+          >
             + Add Chapter
           </div>
 
           {showPopup && (
-            <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+            <div className="fixed inset-0 flex items-center justify-center  backdrop-blur bg-opacity-50">
               <div className="bg-white text-gray-700 p-4 rounded relative w-full max-w-80">
-                <h2>Add Lecture</h2>
-                <div className="mb-2">
-                  <p>Lecture Title</p>
-                  <input
-                    type="text"
-                    className="mt-2 block w-full border rounded py-1 px-2 "
-                    value={lectureDetails.lectureTitle}
-                    onChange={(e) =>
-                      setLectureDetails({
-                        ...lectureDetails,
-                        lectureTitle: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-              </div>
-              <div className="bg-white text-gray-700 p-4 rounded relative w-full max-w-80">
-                <h2>Add Lecture</h2>
-                <div className="mb-2">
+                <h2 className="mb-4">Add Lecture</h2>
+                <div className="mb-4">
                   <p>Lecture Title</p>
                   <input
                     type="text"
@@ -233,7 +282,7 @@ const AddCourse = () => {
                   />
                 </div>
 
-                <div className="mb-2">
+                <div className="mb-4">
                   <p className="">Duration (minutes) </p>
                   <input
                     type="number"
@@ -248,33 +297,60 @@ const AddCourse = () => {
                   />
                 </div>
 
-                <div mb-2>
+                <div className="mb-4">
                   <p>Lecture URL</p>
-                  <input type="text"
-                  className="mt-1 block w-full border rounded py-1 px-2"
-                  value={lectureDetails.lectureUrl}
-                  onChange={(e) => setLectureDetails({...lectureDetails, lectureUrl: e.target.value})}
+                  <input
+                    type="text"
+                    className="mt-1 block w-full border rounded py-1 px-2"
+                    value={lectureDetails.lectureUrl}
+                    onChange={(e) =>
+                      setLectureDetails({
+                        ...lectureDetails,
+                        lectureUrl: e.target.value,
+                      })
+                    }
                   />
                 </div>
 
-                <div mb-2>
-                  <p>Lecture URL</p>
-                  <input type="checkbox"
-                  className="mt-1 scale-125"
-                  checked={lectureDetails.isPreviewFree}
-                  onChange={(e) => setLectureDetails({...lectureDetails, isPreviewFree: e.target.checked})}
+                <div className="mb-4 flex items-center gap-2">
+                  <p>is Preview free ?</p>
+                  <input
+                    type="checkbox"
+                    className="mt-1 scale-125"
+                    checked={lectureDetails.isPreviewFree}
+                    onChange={(e) =>
+                      setLectureDetails({
+                        ...lectureDetails,
+                        isPreviewFree: e.target.checked,
+                      })
+                    }
                   />
                 </div>
 
-                <button className="w-full bg-blue-400 text-white px-4 py-2 rounded" type="button">Add</button>
+                <button onClick={handleAddLecture}
+                  className="w-full bg-blue-600 text-white px-4 py-2 rounded"
+                  type="button"
+                >
+                  Add
+                </button>
 
-                <img src={assets.cross_icon} onClick={() => setShowPopup(false)} className="absolute top-4 right-4 w-5 cursor-pointer" alt="cross icon" />
+                <img
+                  src={assets.cross_icon}
+                  onClick={() => {setShowPopup(false); setIsLectureAdding(false);}}
+                  className="absolute top-4 right-4 w-5 cursor-pointer"
+                  alt="cross icon"
+                />
               </div>
             </div>
           )}
         </div>
 
-        <button type="submit" className="bg-blue-600 text-white w-max py-2.5 px-8 rounded my-4">Add</button>
+        <button 
+          type="submit"
+          className="bg-blue-600 text-white w-max py-2.5 px-8 rounded my-4"
+        >
+          Add
+        </button>
       </form>
     </div>
   );
