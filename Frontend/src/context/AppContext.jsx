@@ -1,21 +1,25 @@
 import React, { createContext, useEffect, useState } from "react";
 import { courseTags, dummyCourses } from "../assets/assets.js";
 import humanizeDuration from "humanize-duration";
+import { useAuth, useUser } from "@clerk/clerk-react";
 
 export const AppContext = createContext();
 
 export const AppContextProvider = (props) => {
   const currency = import.meta.env.VITE_CURRENCY;
 
+  const { getToken } = useAuth();
+  const {user} = useUser();
+
   const [allCourses, setAllCourses] = useState([]);
   const [isLectureAdding, setIsLectureAdding] = useState(false);
-const [isEducator, setIsEducator] = useState(
-  () => JSON.parse(localStorage.getItem("isEducator")) || false
-);
+  const [isEducator, setIsEducator] = useState(
+    () => JSON.parse(localStorage.getItem("isEducator")) || false
+  );
 
-useEffect(() => {
-  localStorage.setItem("isEducator", JSON.stringify(isEducator));
-}, [isEducator]);
+  useEffect(() => {
+    localStorage.setItem("isEducator", JSON.stringify(isEducator));
+  }, [isEducator]);
 
   const [enrolledCourses, setEnrolledCourses] = useState([]);
 
@@ -72,15 +76,25 @@ useEffect(() => {
   };
 
   // Ftech User Enrolled Courses
-  const fetchUserEnrolledCourses = async() => {
+  const fetchUserEnrolledCourses = async () => {
     setEnrolledCourses(dummyCourses);
-  }
+  };
 
   useEffect(() => {
     fetchAllCourses();
     fetchAllCourseTags();
     fetchUserEnrolledCourses();
   }, []);
+
+  const logToken = async () => {
+    console.log(await getToken());
+  };
+
+  useEffect(() => {
+    if(user) {
+      logToken();
+    }
+  }, [user]);
 
   const value = {
     currency,
