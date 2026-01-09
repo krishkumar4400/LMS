@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
 import connectDB from './config/db.js';
+import { clerkWebhooks } from './Controllers/webhooks.js';
 
 // initialize express
 const app = express();
@@ -20,6 +21,8 @@ await connectDB();
 app.get('/', (req,res) => {
     res.send("Hello Express"); 
 });
+
+app.post('/clerk', clerkWebhooks);
 
 // port 
 const port = process.env.PORT || 4000;
